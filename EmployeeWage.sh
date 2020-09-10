@@ -7,26 +7,21 @@ WorkingDays=20
 MonthlyWage=0
 hours=0
 days=1
-while [[ $hours -le 100 && $days -le 20 ]]
-do
-	RandomCheck=`echo $(($RANDOM%3))`
-	echo -e "\nDay: $days"
-	DailyWage=0
-	case $RandomCheck in
-		"0")echo "Employee is absent" ;;
-		"1")
-		DailyWage=$(( $HalfTimeHours * $WagePerHour ))
-		hours=$(( $hours + $HalfTimeHours ))
-		echo "Employee is present for halfday" 
-		;;
-		"2")
-		DailyWage=$(( $FullTimeHours * $WagePerHour ))
-		hours=$(( $hours + $FullTimeHours ))
-		echo "Employee is present for full day" 
-		;;
+WorkHours() {
+	local RandomCheck=$1
+	case $RandomCheck in 
+		"0") echo 0 ;;
+		"1") echo $HalfTimeHours ;;
+		"2") echo $FullTimeHours ;;
 	esac
-	days=$(( $days + 1 ))
+}
+while [[ $days -le 20 && $hours -le 100 ]]
+do
+	RandomCheck=`echo $((RANDOM%3))`
+	DayHours="$( WorkHours $RandomCheck )"
+	DailyWage=$(( $DayHours * $WagePerHour ))
+	hours=$(( $hours + $DayHours ))
 	MonthlyWage=$(( $MonthlyWage + $DailyWage ))
-	echo -e "DailyWage: $DailyWage     MonthlyWage: $MonthlyWage"
+	echo -e "TotalWage:$MonthlyWage"
+	days=$(( $days + 1 ))
 done
-
