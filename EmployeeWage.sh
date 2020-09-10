@@ -1,15 +1,15 @@
 echo "Welcome to Employee Wage Computation Program"
 #!/bin/bash
-isPresent=1
-dailywage=0
-wageperhour=20
-fulltimehours=8
-randomCheck=$(( RANDOM%2 ))
-if [ $isPresent -eq $randomCheck ]
+IsPresent=1
+DailyWage=0
+WagePerHour=20
+FullTimeHours=8
+RandomCheck=$(( RANDOM%2 ))
+if [ $IsPresent -eq $RandomCheck ]
 then
-        dailywage=$(( $wageperhour * $fulltimehours ))
+        DailyWage=$(( $WagePerHour * $FullTimeHours ))
         echo "Employee is present"
 else
         echo "Not present"
 fi
-echo "Daily wage of the employee is $dailywage"
+echo "Daily wage of the employee is $DailyWage"
